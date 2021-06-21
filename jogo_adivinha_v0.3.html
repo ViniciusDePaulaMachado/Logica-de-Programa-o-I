@@ -1,0 +1,86 @@
+<meta charset="utf-8">
+
+<center>
+<h2>Jogo de adivinha</h2><br>
+
+<big>Escolha um numero de 1 a 10</big><br>
+<input/>
+<button>Iniciar</button>
+</center>
+
+<script>
+
+	var input = document.querySelector("input");
+	input.focus();
+
+	var button = document.querySelector("button");
+
+	var numerosSorteados = sorteiaNumero(4);	
+	
+	function sorteia() {
+
+		return Math.round(Math.random() * 10);
+	}
+
+	function sorteiaNumero(quantidade) {
+
+		var numerosSorteados = [];
+
+		var repete = 1;
+
+			while(repete <= quantidade) {
+
+				var numeroAleatorio = sorteia();
+
+				if(numeroAleatorio !== 0) {
+
+					var repetido = false;
+
+					for(var posicao = 0; posicao < numerosSorteados.length; posicao++) {
+
+						if(numeroAleatorio == numerosSorteados[posicao]) {
+
+							repetido = true;
+							break;
+						}
+					}
+				if(repetido == false) {
+
+				numerosSorteados.push(numeroAleatorio);
+				repete++
+
+				}
+			}
+		}
+
+		return numerosSorteados;
+	}
+
+
+	function jogo() {
+
+		var errou = true;
+
+		for(posicao = 0; posicao < numerosSorteados.length; posicao++) {
+
+			if(input.value == numerosSorteados[posicao]) {
+
+				alert("Você Acertou!")
+				errou = false;
+			}
+
+			if(errou == true) {
+
+				alert("Você ERROU!")
+				break;
+			}
+		}
+
+		input.value = ("");
+		input.focus();
+	}
+
+	button.onclick = jogo;
+	console.log(numerosSorteados);
+
+</script>
